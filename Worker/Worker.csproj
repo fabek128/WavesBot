@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-Worker-429D24C5-EB16-4A0C-AD51-CD37B330C8B0</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0"/>
+    <PackageReference Include="Serilog" Version="2.10.1-dev-01343"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WavesCs\WavesCS.csproj"/>
+  </ItemGroup>
+</Project>
