@@ -4,6 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WavesPlatform.WavesCS" Version="1.2.8"/>
+    <ProjectReference Include="..\WavesCs\WavesCS.csproj" />
   </ItemGroup>
 </Project>
