@@ -1,4 +1,8 @@
 @inherits LayoutComponentBase
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using BlazorSite.Auth;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -7,11 +11,38 @@
 
     <div class="main">
         <div class="top-row px-4">
+            <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button>
             <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
         </div>
 
         <div class="content px-4">
             @Body
+            @_authMessage
+            @_surnameMessage
         </div>
     </div>
 </div>
+
+@code {
+    private string _authMessage;
+    private string _surnameMessage;
+    private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            _authMessage = $"{user.Identity.Name} is authenticated.";
+            _claims = user.Claims;
+            _surnameMessage = 
+                $"Surname: {user.FindFirst(c => c.Type == ClaimTypes.Surname)?.Value}";
+        }
+        else
+        {
+            _authMessage = "The user is NOT authenticated.";
+        }
+    }
+}
